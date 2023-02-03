@@ -1,0 +1,47 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+} 
+
+.weather-search {
+    width:100%;
+    display:block;
+}
+
+button {
+    width:100%;
+    display:block;
+}
+
+.weather-header {
+    background-color: rgb(126, 24, 173);
+}
+
+.search-button {
+    background-color: rgb(17, 100, 155);
+    width:100%;
+    display:block;
+}
+
+.card {
+    background-color: aquamarine;
+}
+
+img {
+    width: 50px;  
+    height: auto;  
+}
+
+#today {
+    border: solid 1px black;
+}
+
+#forecast {
+    margin: 5px;
+    justify-content: space-between;
+}
+#hist-btn {
+    background-color: gray;
+}
