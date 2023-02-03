@@ -1,8 +1,11 @@
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
-    font-weight: bold;
     line-height: 1;
+} 
+
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: bold;
 } 
 
 .weather-search {
@@ -13,6 +16,15 @@ body {
 button {
     width:100%;
     display:block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.weather-hr {
+    border: none;
+    height: 3px;
+    background-color: black;
 }
 
 .weather-header {
@@ -21,12 +33,12 @@ button {
 
 .search-button {
     background-color: rgb(17, 100, 155);
-    width:100%;
-    display:block;
 }
 
 .card {
     background-color: aquamarine;
+    padding: 3px;
+    padding-right: 3vw;
 }
 
 img {
@@ -36,10 +48,12 @@ img {
 
 #today {
     border: solid 1px black;
+    padding: 3px;
+    background-color: cadetblue;
 }
 
 #forecast {
-    margin: 5px;
+    margin: auto;
     justify-content: space-between;
 }
 #hist-btn {
