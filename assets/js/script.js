@@ -1,4 +1,10 @@
+var locs = JSON.parse(localStorage.getItem("history"));
 var locations = [];
+
+if (locs) {
+    locations = locs;
+    renderHistory();
+}
 
 $("#search-button").on("click", function(event) {
     event.preventDefault();
@@ -9,7 +15,10 @@ $("#search-button").on("click", function(event) {
         return;
     }
 
-    locations.push(search);
+    locations.unshift(search);
+    if (locations.length > 5) {
+        locations.pop();
+    }
 
     var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" +
     search + "&appid=b163cdbf260a24669a52af24040a91f0";
@@ -83,8 +92,6 @@ function forecastInfo(lat, lon) {
 }
 
 function renderHistory() {
-    // Deleting the movies prior to adding new movies
-    // (this is necessary otherwise you will have repeat buttons)
     $("#history").empty();
  
     // Looping through the array of movies
@@ -102,7 +109,7 @@ function renderHistory() {
       $("#history").append(a);
     }
 
-    localStorage.setItem("history", locations);
+    localStorage.setItem("history", JSON.stringify(locations));
 }
 
 function pastInfo() {
