@@ -22,3 +22,4 @@ N/A
 * Search any city
 
 ## Screenshot
+![Screenshot 2023-02-04 at 23-12-45 Weather Dashboard](https://user-images.githubusercontent.com/117127128/216793441-a3e17fbc-f237-46a3-a030-1c71170a21b5.png)
