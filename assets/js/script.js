@@ -16,7 +16,7 @@ $("#search-button").on("click", function(event) {
     }
 
     locations.unshift(search);
-    if (locations.length > 5) {
+    if (locations.length > 6) {
         locations.pop();
     }
 
@@ -47,7 +47,9 @@ function currentInfo({ lat, lon }) {
         var temp = $("<p>").text(`Temp: ${response.main.temp} °C`);
         var wind = $("<p>").text(`Wind: ${response.wind.speed} KPH`);
         var humid = $("<p>").text(`Humidity: ${response.main.humidity}%`);
-        $("#today").append(title, icon, temp, wind, humid);
+        
+        $(title).append(icon);
+        $("#today").append(title, temp, wind, humid);
     });
 
     forecastInfo(lat, lon);
