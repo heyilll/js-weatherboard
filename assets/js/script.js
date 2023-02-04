@@ -1,11 +1,14 @@
+// retrieves from local storage
 var locs = JSON.parse(localStorage.getItem("history"));
 var locations = [];
 
+// if data already exists in local storage, then render
 if (locs) {
     locations = locs;
     renderHistory();
 }
 
+// search button event listener
 $("#search-button").on("click", function(event) {
     event.preventDefault();
 
@@ -15,6 +18,7 @@ $("#search-button").on("click", function(event) {
         return;
     }
 
+    // limits search history to 6 
     locations.unshift(search);
     if (locations.length > 6) {
         locations.pop();
@@ -23,6 +27,7 @@ $("#search-button").on("click", function(event) {
     var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" +
     search + "&appid=b163cdbf260a24669a52af24040a91f0";
 
+    // fetches data and uses ES6 object destructuring to pass lat and lon arguments 
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -32,6 +37,7 @@ $("#search-button").on("click", function(event) {
     renderHistory();
 });
 
+// fetches and displays current weather data
 function currentInfo({ lat, lon }) {
     $("#today").empty();
 
@@ -47,7 +53,7 @@ function currentInfo({ lat, lon }) {
         var temp = $("<p>").text(`Temp: ${response.main.temp} °C`);
         var wind = $("<p>").text(`Wind: ${response.wind.speed} KPH`);
         var humid = $("<p>").text(`Humidity: ${response.main.humidity}%`);
-        
+
         $(title).append(icon);
         $("#today").append(title, temp, wind, humid);
     });
@@ -55,6 +61,7 @@ function currentInfo({ lat, lon }) {
     forecastInfo(lat, lon);
 }
 
+// displays 5 day forecast weather data
 function displayForecast(response) {
     $("#forecast").empty();
 
@@ -65,12 +72,13 @@ function displayForecast(response) {
         var temp = $("<p>").text(`Temp: ${response[i].main.temp} °C`);
         var wind = $("<p>").text(`Wind: ${response[i].wind.speed} KPH`);
         var humid = $("<p>").text(`Humidity: ${response[i].main.humidity}%`);
-        card.append(title, icon, temp, wind, humid);
 
+        card.append(title, icon, temp, wind, humid);
         $("#forecast").append(card);
     }
 }
   
+// fetches 5 day forecast weather data
 function forecastInfo(lat, lon) {
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" 
     + lon + "&units=metric&appid=b163cdbf260a24669a52af24040a91f0";
@@ -81,6 +89,7 @@ function forecastInfo(lat, lon) {
     }).then(function(response) {
         var days = [];
 
+        // removes unwanted text from api call
         for (let i =0; i< response.list.length; i++) {
             if (response.list[i].dt_txt.includes("12:00:00")) {
                 var day = response.list[i];
@@ -93,27 +102,26 @@ function forecastInfo(lat, lon) {
     });
 }
 
+// renders search history as buttons
 function renderHistory() {
     $("#history").empty();
  
-    // Looping through the array of movies
+    // Looping through the array of past locations
     for (var i = 0; i < locations.length; i++) {
-      // Then dynamicaly generating buttons for each movie in the array
-      // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+      // Then dynamicaly generating buttons for each location
       var a = $("<button>");
-      // Adding a class of movie-btn to our button
       a.addClass("hist-btn rounded");
       // Adding a data-attribute
       a.attr("data-name", locations[i]);
-      // Providing the initial button text
       a.text(locations[i]);
-      // Adding the button to the buttons-view div
+
       $("#history").append(a);
     }
 
     localStorage.setItem("history", JSON.stringify(locations));
 }
 
+// retrieves the city attribute of the button clicked and 
 function pastInfo() {
     var search = $(this).attr("data-name");
     var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" +
@@ -125,4 +133,5 @@ function pastInfo() {
     }).then(response => currentInfo(response[0]));
 }
 
+// event delegation for history button event listener
 $(document).on("click", ".hist-btn", pastInfo);
