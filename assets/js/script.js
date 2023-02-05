@@ -24,7 +24,7 @@ $("#search-button").on("click", function(event) {
         locations.pop();
     }
 
-    var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    var queryURL = "https://api.openweathermap.org/geo/1.0/direct?q=" +
     search + "&appid=b163cdbf260a24669a52af24040a91f0";
 
     // fetches data and uses ES6 object destructuring to pass lat and lon arguments 
@@ -68,7 +68,7 @@ function displayForecast(response) {
     for (let i =0; i < response.length;i++) {
         var card = $("<div>").addClass("card");
         var title = $("<h5>").addClass("h6").text(response[i].dt_txt);
-        var icon = $("<img>").attr("src", `http://openweathermap.org/img/w/${response[i].weather[0].icon}.png`);
+        var icon = $("<img>").attr("src", `https://openweathermap.org/img/w/${response[i].weather[0].icon}.png`);
         var temp = $("<p>").text(`Temp: ${response[i].main.temp} °C`);
         var wind = $("<p>").text(`Wind: ${response[i].wind.speed} KPH`);
         var humid = $("<p>").text(`Humidity: ${response[i].main.humidity}%`);
@@ -124,7 +124,7 @@ function renderHistory() {
 // retrieves the city attribute of the button clicked and 
 function pastInfo() {
     var search = $(this).attr("data-name");
-    var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    var queryURL = "https://api.openweathermap.org/geo/1.0/direct?q=" +
     search + "&appid=b163cdbf260a24669a52af24040a91f0";
 
     $.ajax({
