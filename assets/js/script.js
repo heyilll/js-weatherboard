@@ -49,7 +49,7 @@ function currentInfo({ lat, lon }) {
         method: "GET"
     }).then(function(response) {
         var title = $("<h4>").addClass("h5").text(`${response.name} (${moment().format("DD/MM/YYYY")})`);
-        var icon = $("<img>").attr("src", `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+        var icon = $("<img>").attr("src", `https://openweathermap.org/img/w/${response.weather[0].icon}.png`);
         var temp = $("<p>").text(`Temp: ${response.main.temp} °C`);
         var wind = $("<p>").text(`Wind: ${response.wind.speed} KPH`);
         var humid = $("<p>").text(`Humidity: ${response.main.humidity}%`);
